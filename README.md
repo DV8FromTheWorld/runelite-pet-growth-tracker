@@ -4,6 +4,16 @@ Tracks the growth and hunger of your kitten/cat or puppy/dog, and warns you befo
 
 Forked from [pieterjanbuntinx/kitten-tracker](https://github.com/pieterjanbuntinx/kitten-tracker), extended to also track puppies/dogs.
 
+## Screenshots
+
+| Cat overlay | Dog overlay |
+| --- | --- |
+| ![Kitten status overlay](images/kitten-status.png) | ![Puppy status overlay](images/puppy-status.png) |
+
+Settings, grouped by species:
+
+![Plugin settings panel](images/settings.png)
+
 ## How it works
 
 - **Cats** — ported from the original Kitten Tracker unchanged: growth is inferred from overhead text on each 90-second tick, falling back to checking for a growth-blocking interface (bank, GE, ...) when that can't be seen. Warns you before your kitten runs away from hunger or neglect.
