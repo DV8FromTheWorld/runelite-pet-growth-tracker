@@ -14,7 +14,3 @@ Both species are classified by NPC id and handled through a shared `PetHandler` 
 ## Licensing
 
 BSD 2-Clause, see [LICENSE](LICENSE). This is a derivative work of [kitten-tracker](https://github.com/pieterjanbuntinx/kitten-tracker); its original copyright notices (2018 Nachtmerrie, 2021 Pieter-Jan Buntinx) are retained, both in the repository-level LICENSE and in the source files that still carry its original growth-tracking algorithm.
-
-## Not yet done
-
-- `icon.png` at the repo root, required by the plugin hub's build validation.
