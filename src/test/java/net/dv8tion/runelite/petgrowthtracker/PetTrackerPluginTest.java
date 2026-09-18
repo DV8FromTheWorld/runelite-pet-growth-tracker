@@ -1,11 +1,11 @@
-package com.kittentracker;
+package net.dv8tion.runelite.petgrowthtracker;
 
 import net.runelite.client.RuneLite;
 import net.runelite.client.externalplugins.ExternalPluginManager;
 
-public class KittenPluginTest {
+public class PetTrackerPluginTest {
     public static void main(String[] args) throws Exception {
-        ExternalPluginManager.loadBuiltin(KittenPlugin.class);
+        ExternalPluginManager.loadBuiltin(PetTrackerPlugin.class);
         RuneLite.main(args);
     }
 }

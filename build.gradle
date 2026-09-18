@@ -13,20 +13,53 @@ repositories {
 def runeLiteVersion = 'latest.release'
 
 dependencies {
-	compileOnly group: 'net.runelite', name:'client', version: runeLiteVersion
+	compileOnly group: 'net.runelite', name: 'client', version: runeLiteVersion
+	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.30'
+	annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.30'
 
-	compileOnly 'org.projectlombok:lombok:1.18.4'
-	annotationProcessor 'org.projectlombok:lombok:1.18.4'
-
-	testImplementation 'junit:junit:4.12'
-	testImplementation group: 'net.runelite', name:'client', version: runeLiteVersion
-	testImplementation group: 'net.runelite', name:'jshell', version: runeLiteVersion
+	testImplementation group: 'net.runelite', name: 'client', version: runeLiteVersion
+	testImplementation group: 'junit', name: 'junit', version: '4.13.2'
 }
 
-group = 'com.kittentracker'
-version = '1.3'
-sourceCompatibility = '1.8'
+java {
+	sourceCompatibility = JavaVersion.VERSION_11
+	targetCompatibility = JavaVersion.VERSION_11
+}
 
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
 	options.encoding = 'UTF-8'
+}
+
+group = 'net.dv8tion.runelite.petgrowthtracker'
+version = '1.0'
+
+// Launches RuneLite with this plugin already loaded, for local development.
+//
+// For a Jagex Account, this alone won't get you past login - RuneLite has no
+// way to do the Jagex OAuth handshake on its own; only the real Jagex
+// Launcher can obtain that session. The documented workaround
+// (https://github.com/runelite/runelite/wiki/Using-Jagex-Accounts) is a
+// one-time step entirely outside this project: in your normally-installed
+// RuneLite, run "RuneLite (configure)" from the Start Menu, add
+// `--insecure-write-credentials` under "Client arguments", then launch
+// RuneLite as you normally do (via the Jagex Launcher) and log in once. That
+// writes the session it received from the launcher to
+// `%USERPROFILE%\.runelite\credentials.properties`. Any RuneLite process
+// reading the same RUNELITE_DIR - including this Gradle-launched one -
+// then picks that file up automatically and skips the login screen. Delete
+// that file afterwards to stop it being reused.
+task runPlugin(type: JavaExec) {
+	group = 'application'
+	description = 'Launches RuneLite with the Pet Tracker plugin loaded.'
+	classpath = sourceSets.test.runtimeClasspath
+	mainClass = 'net.dv8tion.runelite.petgrowthtracker.PetTrackerPluginTest'
+	// RuneLite refuses to start without assertions enabled.
+	enableAssertions = true
+	// JDK 17+ blocks the reflective access RuneLite's macOS support needs.
+	jvmArgs = [
+		'--add-exports=java.desktop/com.apple.eawt=ALL-UNNAMED',
+		'--add-opens=java.desktop/sun.awt=ALL-UNNAMED',
+		'--add-opens=java.desktop/sun.awt.image=ALL-UNNAMED',
+		'--add-opens=java.desktop/sun.java2d=ALL-UNNAMED',
+	]
 }
