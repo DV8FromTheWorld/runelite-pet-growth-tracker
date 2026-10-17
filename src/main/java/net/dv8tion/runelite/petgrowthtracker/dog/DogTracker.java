@@ -67,10 +67,17 @@ class DogTracker
         this.growthMinutes = growthMinutes;
         this.fedMinutes = fedMinutes;
 
-        if (growthMinutes >= GROWTH_MINUTES)
-        {
-            fullyGrown = true;
-        }
+        fullyGrown = growthMinutes >= GROWTH_MINUTES;
+    }
+
+    /** Discard the previous follower; the next tick restores progress from server varbits. */
+    void reset()
+    {
+        growthMinutes = 0;
+        fedMinutes = 0;
+        fullyGrown = false;
+        following = false;
+        petName = null;
     }
 
     void setFollowing(boolean following, String petName)
