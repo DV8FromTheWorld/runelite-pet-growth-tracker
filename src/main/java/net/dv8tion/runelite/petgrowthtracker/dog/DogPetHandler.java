@@ -64,6 +64,7 @@ public class DogPetHandler implements PetHandler
     @Override
     public void onFollowerChanged(int npcId)
     {
+        tracker.reset();
         followerKind = FollowerKind.getFromFollowerId(npcId);
         warnedHungry = false;
         warnedVeryHungry = false;
